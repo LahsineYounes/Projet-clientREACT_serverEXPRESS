@@ -8,6 +8,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
     fetchTasks();
@@ -29,6 +30,8 @@ function App() {
     try {
       const newTask = await taskService.createTask(taskData);
       setTasks((prev) => [...prev, newTask]);
+      setSuccess("Tâche ajoutée avec succès!");
+      setTimeout(() => setSuccess(null), 3000);
     } catch {
       setError("Erreur lors de l'ajout");
     }
@@ -57,6 +60,10 @@ function App() {
   return (
     <div className="App">
       <h1>Gestion de tâches</h1>
+      
+      {success && <p style={{color: 'green', textAlign: 'center', margin: '10px 0'}}>{success}</p>}
+      {error && <p style={{color: 'red', textAlign: 'center', margin: '10px 0'}}>{error}</p>}
+      
       <div className="task-form">
         <TaskForm onTaskAdded={handleTaskAdded} />
       </div>

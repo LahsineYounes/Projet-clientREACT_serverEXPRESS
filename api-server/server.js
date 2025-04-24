@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5050;
 
 // Appliquer les middlewares
 const allowedOrigins = [
-  "https://younes-tp.vercel.app", // frontend Vercel
+  "https://younes.vercel.app", // frontend Vercel
   "http://localhost:3000",        // pour le dev local
 ];
 
@@ -29,9 +29,20 @@ let tasks = [
 
 
 // Routes
+/*
 app.get("/", (req, res) => {
   res.json({ message: "API opérationnelle" });
   //res.send("Hiiiiiiii World ! I'm YOUNES");
+});
+*/
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "API opérationnelle",
+    endpoints: {
+      tasks: "/api/tasks",
+      singleTask: "/api/tasks/:id"
+    }
+  });
 });
 
 app.get("/api/tasks", (req, res) => {
@@ -45,6 +56,9 @@ app.get("/api/tasks/:id", (req, res) => {
 });
 
 app.post("/api/tasks", (req, res) => {
+  if (!req.body.title) {
+    return res.status(400).json({ error: "Le titre est requis" });
+  }
   const newTask = {
     id: tasks.length + 1,
     title: req.body.title,
@@ -69,7 +83,16 @@ app.delete("/api/tasks", (req, res) => {
   res.json({ message: "Toutes les tâches ont été supprimées" });
 });
 
-// Démarrer le serveur et écouter sur le port
+// la gestion des erreurs
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Quelque chose s\'est mal passé!' });
+});
+
+// Démarrer le serveur
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
+  console.log(`Environnement: ${process.env.NODE_ENV || 'development'}`);
 });
+
+module.exports = app;
