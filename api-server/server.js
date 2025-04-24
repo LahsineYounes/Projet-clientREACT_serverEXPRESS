@@ -66,5 +66,5 @@ app.listen(PORT, () => {
 
 const cors = require('cors');
 app.use(cors({
-  origin: 'yns-frontback-react.vercel.app' // Remplacez par l'URL de votre frontend
+  origin: ['younes-tp.vercel.app', 'localhost:3000'] // Remplacez par l'URL de votre frontend
 }));
