@@ -63,8 +63,9 @@ app.delete("/api/tasks", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
 });
-
+/*
 const cors = require('cors');
 app.use(cors({
   origin: ['younes-tp.vercel.app', 'localhost:3000'] // Remplacez par l'URL de votre frontend
 }));
+*/
