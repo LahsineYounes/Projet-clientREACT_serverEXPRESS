@@ -1,3 +1,5 @@
+
+// server.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -17,6 +19,18 @@ let tasks = [
   { id: 1, title: "Apprendre Express", completed: false },
   { id: 2, title: "Créer une API REST", completed: false },
 ];
+
+const allowedOrigins = [
+  "https://younes-tp.vercel.app", // frontend Vercel
+  "http://localhost:3000",        // pour le dev local
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "DELETE"],
+  credentials: true
+}));
+
 
 // Routes
 app.get("/", (req, res) => {
@@ -63,9 +77,3 @@ app.delete("/api/tasks", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
 });
-/*
-const cors = require('cors');
-app.use(cors({
-  origin: ['younes-tp.vercel.app', 'localhost:3000'] // Remplacez par l'URL de votre frontend
-}));
-*/
