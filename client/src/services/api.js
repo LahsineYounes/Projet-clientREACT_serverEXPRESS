@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const API_URL = "http://localhost:5050/api"; // le port du backend
-const API_URL = "https://yns-back.vercel.app/api"; // le port du backend
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5050/api";
 
 // instance d'axios
 const apiClient = axios.create({

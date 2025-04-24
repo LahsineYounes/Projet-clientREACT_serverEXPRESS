@@ -1,5 +1,3 @@
-
-// server.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -10,16 +8,6 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 
 // Appliquer les middlewares
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Données mock
-let tasks = [
-  { id: 1, title: "Apprendre Express", completed: false },
-  { id: 2, title: "Créer une API REST", completed: false },
-];
-
 const allowedOrigins = [
   "https://younes-tp.vercel.app", // frontend Vercel
   "http://localhost:3000",        // pour le dev local
@@ -30,6 +18,14 @@ app.use(cors({
   methods: ["GET", "POST", "DELETE"],
   credentials: true
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Données mock
+let tasks = [
+  { id: 1, title: "Apprendre Express", completed: false },
+  { id: 2, title: "Créer une API REST", completed: false },
+];
 
 
 // Routes
