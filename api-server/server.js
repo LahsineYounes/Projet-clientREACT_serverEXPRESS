@@ -63,3 +63,8 @@ app.delete("/api/tasks", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
 });
+
+const cors = require('cors');
+app.use(cors({
+  origin: 'yns-frontback-react.vercel.app' // Remplacez par l'URL de votre frontend
+}));
